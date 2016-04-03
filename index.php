@@ -13,6 +13,8 @@
  * along with this script and the above .htaccess file.
  */
 
+var_dump($_ENV);
+
 include('db.php');
 include('vars.php');
 
