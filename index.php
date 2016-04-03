@@ -1,4 +1,4 @@
-<?php
+ddddd<?php
 /* Store index page
  *
  * This script depends on the following code in .htaccess:
@@ -12,8 +12,6 @@
  * Place the "static" and "views" directories in the root
  * along with this script and the above .htaccess file.
  */
-
-var_dump($_ENV);
 
 include('db.php');
 include('vars.php');
