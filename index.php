@@ -1,4 +1,4 @@
-ddddd<?php
+<?php
 /* Store index page
  *
  * This script depends on the following code in .htaccess:
