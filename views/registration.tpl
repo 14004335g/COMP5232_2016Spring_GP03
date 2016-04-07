@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?php echo $site_title; ?> </title>
+    <title> <?php echo $site_title; ?> </title>
     <meta charset="utf8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
@@ -14,27 +14,6 @@
         body {
             padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
 
-        }
-
-        .preview {
-            float: left;
-            margin-right: 20px;
-        }
-
-        .preview .thumb {
-            border: 0 none;
-            margin-top: 5px;
-            width: 252px;
-        }
-
-        .outofstock {
-            background-color: red;
-            pointer-events: none;
-            cursor: default;
-        }
-
-        a.outofstock {
-            color: white;
         }
 
         /* Custom container */
@@ -67,7 +46,6 @@
                 padding-right: 5px;
             }
 
-
     </style>
 
 </head>
@@ -76,8 +54,7 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
-
-            <a class="brand pull-left" href="/"><em><b><?php echo $site_title; ?></b></em></a>
+            <a class="brand pull-left" href="/"><em><?php echo $site_title; ?></em></a>
             <?php
                     if (!isset($_COOKIE["username"])){
                       echo '<a class="brand-right" href="/login"><em>Login</em></a>';
@@ -85,56 +62,44 @@
             echo '<a class="brand-right" href="/?logout=logout"><em>Welcome, '.$_COOKIE["username"].'</em></a>';
             };
             ?>
-            <div class="nav-collapse collapse">
-
-            </div><!--/.nav-collapse -->
-        </div>
+        </div><!--/.nav-collapse -->
     </div>
+</div>
 </div>  <!-- end of div for nav bar-->
 
 <div class="container">
     <!-- <table class="table table-hover">
     <tr> -->
+    <a href="/">NEC Server</a> / Registration
+    <br>
     <div class="hero-unit">
-        <div>
-            <h2 class="text-center"><em><?php echo $site_title; ?></em></h2>
-        </div>
-        <br/>
+        <form action="doregistration.php" method="POST">
 
-        <p>
-
-            Welcome to <?php echo $site_title; ?>! If you would like to purchase an item, please <a
-                    href="mailto:webmaster@mycoolstore.com">contact us</a> and we will be happy to help.
-
-        </p>
-
-        <p>
-
-            Check back often for promotional deals and new stock!
-
-        </p>
-
-        <div>
-
-
+            <table>
+                <tr>
+                    <td><p align="right">Username :</p></td>
+                    <td><input type="text" name="username"></td>
+                </tr>
+                <tr>
+                    <td><p align="right">Password :</p></td>
+                    <td><input type="password" name="pw"></td>
+                </tr>
+                <tr>
+                    <td><p align="right">Contact email :</p></td>
+                    <td><input type="email" name="email"></td>
+                </tr>
+                <tr>
+                    <td><p align="right">Shipping Address :</p></td>
+                    <td><textarea rows="3" cols="20" name="shipping_address"> </textarea></td>
+                </tr>
+            </table>
+            <input type="submit" value="Submit">
             <?php
-				foreach($items as $item) {  ?>
-            <div class="preview <?php if ($item->QUAN < 1) echo 'outofstock' ?>">
-                <a href="desc?id=<?php echo $item->ID ?>"  <?php if ($item->QUAN < 1) echo "class='outofstock'" ?> >
-                <?php echo $item->TITLE; if ($item->QUAN < 1) echo ' (out of stock)'; ?><br>
-                <img src="/static/images/<?php echo $item->IMGSRC ?>" class="thumb"/>
-                </a>
-            </div>
-
-            <?php
-
-				}
-			 ?>
-
-        </div>
-        <p style="clear:both"></p>
-
-
+                        if ($state == "regerror"){
+                            echo ' <font color="red">Registration Fail.</font> ';
+            }
+            ?>
+        </form>
     </div> <!-- end of the hero-unit-->
 </div> <!-- end of the container-->
 

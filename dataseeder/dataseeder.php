@@ -9,7 +9,11 @@ $sql = "DROP TABLE STOCK";
 $result = $mysqli->query($sql);
 
 $sql = "CREATE TABLE STOCK (ID BIGINT NOT NULL, DESCRIPTION TEXT, IMGSRC VARCHAR(255), PRICE INTEGER, QUAN INTEGER, TITLE VARCHAR(255), PRIMARY KEY (ID))";
+$result = $mysqli->query($sql);
 
+$sql = "DROP TABLE NEC_USER";
+$result = $mysqli->query($sql);
+$sql = "CREATE TABLE NEC_USER (USERNAME VARCHAR(255) NOT NULL, PW VARCHAR(255), EMAIL VARCHAR(255), SHIPPING_ADDRESS TEXT, PRIMARY KEY (USERNAME))";
 $result = $mysqli->query($sql);
 
 if ($result) {
@@ -42,6 +46,12 @@ foreach ($prints as $print) {
         print "Insert succeded. ";
     } else print "Insert failed! ";
 }
+
+$rc = $mysqli->query("INSERT INTO NEC_USER (USERNAME, PW, EMAIL, SHIPPING_ADDRESS) VALUES ( 'Carl', '123456', '14004312g@connect.polyu.hk', 'POLYU')");
+
+if ($rc) {
+    print "Create user succeded. ";
+} else print "Create user failed! ";
 
 $mysqli->close();
 ?>

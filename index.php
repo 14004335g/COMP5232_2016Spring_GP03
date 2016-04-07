@@ -37,6 +37,16 @@ if (isset($_GET['id'])) {
     $item = $items[$_GET['id'] - 1];
 }
 
+if (isset($_GET['logout'])) {
+    unset($_COOKIE['username']);
+    setcookie('username', null, -1, '/');
+}
+
+$state = "";
+if (isset($_GET['state'])) {
+    $state = $_GET['state'];
+}
+
 if (file_exists("views/$lll_route.tpl")) {
     ob_start();
     require_once("views/$lll_route.tpl");

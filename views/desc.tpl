@@ -8,6 +8,7 @@
     <link href="/static/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="/static/bootstrap-responsive.css" rel="stylesheet">
     <link href="/static/bootstrap.css" rel="stylesheet">
+    <link href="/static/NEC.css" rel="stylesheet">
 
     <style type="text/css">
         body {
@@ -54,8 +55,14 @@
     <div class="navbar-inner">
         <div class="container">
 
-            <a class="brand pull-left" href="/"><em><?php echo $site_title; ?></em></a>
-
+            <a class="brand pull-left" href="/"><em><b><?php echo $site_title; ?></b></em></a>
+            <?php
+                    if (!isset($_COOKIE["username"])){
+                      echo '<a class="brand-right" href="/login"><em>Login</em></a>';
+            } else {
+            echo '<a class="brand-right" href="/?logout=logout"><em>Welcome, '.$_COOKIE["username"].'</em></a>';
+            };
+            ?>
             <div class="nav-collapse collapse">
 
             </div><!--/.nav-collapse -->
@@ -66,6 +73,7 @@
 <div class="container">
     <!-- <table class="table table-hover">
     <tr> -->
+    <a href="/">NEC Server</a> / <?php echo $item->TITLE ?>
     <div class="hero-unit">
         <div>
             <h2><em><?php echo $item->TITLE ?></em>
