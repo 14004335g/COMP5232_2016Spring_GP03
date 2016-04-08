@@ -16,6 +16,11 @@ $result = $mysqli->query($sql);
 $sql = "CREATE TABLE NEC_USER (USERNAME VARCHAR(255) NOT NULL, PW VARCHAR(255), EMAIL VARCHAR(255), SHIPPING_ADDRESS TEXT, PRIMARY KEY (USERNAME))";
 $result = $mysqli->query($sql);
 
+$sql = "DROP TABLE NEC_ORDER";
+$result = $mysqli->query($sql);
+$sql = "CREATE TABLE NEC_ORDER (ID BIGINT NOT NULL auto_increment, USERNAME VARCHAR(255), STOCK_ID BIGINT, QUANTITY INTEGER, REMARK TEXT, PRIMARY KEY (ID), FOREIGN KEY (USERNAME) REFERENCES NEC_USER (USERNAME), FOREIGN KEY (STOCK_ID) REFERENCES STOCK (ID))";
+$result = $mysqli->query($sql);
+
 if ($result) {
     echo "Table STOCK created successfully. ";
 } else {

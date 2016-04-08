@@ -29,6 +29,20 @@ if ($result = $mysqli->query($strsql)) {
     echo "Failed to query the database!";
 }
 
+if (isset($_COOKIE["username"])) {
+    $username = $_COOKIE["username"];
+    $strsql = "select * from nec_order where username = '$username' ";
+
+    if ($result = $mysqli->query($strsql)) {
+        while ($row = $result->fetch_object()) {
+            $orders[] = clone $row;
+        }
+        $result->close();
+    } else {
+        echo "Failed to query the database!";
+    }
+}
+
 $mysqli->close();
 
 $lll_route = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);

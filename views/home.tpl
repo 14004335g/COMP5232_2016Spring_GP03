@@ -82,7 +82,10 @@
                     if (!isset($_COOKIE["username"])){
                       echo '<a class="brand-right" href="/login"><em>Login</em></a>';
             } else {
+            echo '<a class="brand-right" href="/myorder"><em>My Order</em></a>';
+            echo '<a class="brand-right"> | </em></a>';
             echo '<a class="brand-right" href="/?logout=logout"><em>Welcome, '.$_COOKIE["username"].'</em></a>';
+            echo ' ';
             };
             ?>
             <div class="nav-collapse collapse">
@@ -95,6 +98,11 @@
 <div class="container">
     <!-- <table class="table table-hover">
     <tr> -->
+    <?php
+                    if ($state == "ordersuccess"){
+                               echo ' <font color="green">Your order is in process.</font> ';
+    }
+    ?>
     <div class="hero-unit">
         <div>
             <h2 class="text-center"><em><?php echo $site_title; ?></em></h2>
@@ -120,9 +128,9 @@
             <?php
 				foreach($items as $item) {  ?>
             <div class="preview <?php if ($item->QUAN < 1) echo 'outofstock' ?>">
-                <a href="desc?id=<?php echo $item->ID ?>"  <?php if ($item->QUAN < 1) echo "class='outofstock'" ?> >
-                <?php echo $item->TITLE; if ($item->QUAN < 1) echo ' (out of stock)'; ?><br>
-                <img src="/static/images/<?php echo $item->IMGSRC ?>" class="thumb"/>
+                <a href="desc?id=<?php echo $item->ID ?>">
+                    <?php echo $item->TITLE;?><br>
+                    <img src="/static/images/<?php echo $item->IMGSRC ?>" class="thumb"/>
                 </a>
             </div>
 

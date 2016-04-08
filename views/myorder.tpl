@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title> <?php echo $site_title; ?> </title>
+    <title><?php echo $site_title; ?> </title>
     <meta charset="utf8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
@@ -14,6 +14,27 @@
         body {
             padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
 
+        }
+
+        .preview {
+            float: left;
+            margin-right: 20px;
+        }
+
+        .preview .thumb {
+            border: 0 none;
+            margin-top: 5px;
+            width: 252px;
+        }
+
+        .outofstock {
+            background-color: red;
+            pointer-events: none;
+            cursor: default;
+        }
+
+        a.outofstock {
+            color: white;
         }
 
         /* Custom container */
@@ -46,6 +67,7 @@
                 padding-right: 5px;
             }
 
+
     </style>
 
 </head>
@@ -60,7 +82,10 @@
                     if (!isset($_COOKIE["username"])){
                       echo '<a class="brand-right" href="/login"><em>Login</em></a>';
             } else {
+            echo '<a class="brand-right" href="/myorder"><em>My Order</em></a>';
+            echo '<a class="brand-right"> | </em></a>';
             echo '<a class="brand-right" href="/?logout=logout"><em>Welcome, '.$_COOKIE["username"].'</em></a>';
+            echo ' ';
             };
             ?>
             <div class="nav-collapse collapse">
@@ -73,54 +98,48 @@
 <div class="container">
     <!-- <table class="table table-hover">
     <tr> -->
-    <a href="/">NEC Server</a> / <?php echo $item->TITLE ?>
     <div class="hero-unit">
         <div>
-            <h2><em><?php echo $item->TITLE ?></em>
-                <h2>
-        </div>
-        <br/>
-
-        <img src="/static/images/<?php echo $item->IMGSRC ?>" class="sale-photo">
-
-        <h3>
-            Description:
-        </h3>
-
-        <div id="description">
-            <?php echo $item->DESCRIPTION ?>
-        </div>
-
-        <h3>
-            Price:
-        </h3>
-
-        <div id="price"><?php echo $item->PRICE ?></div>
-
-        <?php
-        if (isset($_COOKIE["username"])){
-            echo '<h3>Make an order:</h3>
-        <form action="doorder.php" method="POST">
-            <table>
+            <table width="100%">
                 <tr>
-                    <td><p align="right">Quantity :</p></td>
-                    <td><input type="number" name="quantity" min="1" max="5"></td>
-                    <input type="hidden" name="itemid" value='.$item->ID.'></tr>
-                <tr>
-                    <td><p align="right">Remarks :</p></td>
-                    <td><input type="text" name="remark"></td>
+                    <th>Order id</th>
+                    <th>Product name</th>
+                    <th>Quantity</th>
+                    <th>Remark</th>
                 </tr>
-            </table>
-            <input type="submit" value="Submit"></form>
-        ';
-        }
-        ?>
 
-        <?php
-                        if ($state == "quanfail"){
-                            echo ' <font color="red">Not enough stock</font> ';
-        }
-        ?>
+                <?php
+				foreach($orders as $order) {
+				include('db.php');
+				global $mysqli;
+				$itemID = $order -> STOCK_ID;
+$strsql = "select * from stock where ID = $itemID";
+if ($result = $mysqli->query($strsql)) {
+                $row = $result->fetch_object();
+                $itemName = $row -> TITLE;
+                $result->close();
+                } else {
+                echo "Failed to query the database!";
+                }
+
+                echo '
+                <tr>
+                    <td align="center">'.$order -> ID.'</td>
+                    <td align="center">'.$itemName.'</td>
+                    <td align="center">'.$order -> QUANTITY.'</td>
+                    <td align="center">'.$order -> REMARK.'</td>
+                </tr>
+                '; ?>
+
+
+                <?php
+
+				}
+			 ?>
+            </table>
+        </div>
+        <p style="clear:both"></p>
+
 
     </div> <!-- end of the hero-unit-->
 </div> <!-- end of the container-->
