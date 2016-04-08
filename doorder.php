@@ -18,10 +18,11 @@ if ($rc) {
     } else {
         // make an order
         $remainQUAN = $itemObject->QUAN - $quantity;
+        $itemName = $itemObject->TITLE;
         $sql = "UPDATE STOCK SET QUAN='$remainQUAN' WHERE ID = '$itemId' ";
         $rc = $mysqli->query($sql);
 
-        $sql = "INSERT INTO NEC_ORDER(USERNAME, STOCK_ID, QUANTITY, REMARK) VALUES ('$username', $itemId, $quantity, '$remark')";
+        $sql = "INSERT INTO NEC_ORDER(USERNAME, STOCK_ID, STOCK_NAME, QUANTITY, REMARK) VALUES ('$username', $itemId,'$itemName', $quantity, '$remark')";
 
         echo $sql;
 

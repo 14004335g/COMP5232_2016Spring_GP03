@@ -60,7 +60,10 @@
                     if (!isset($_COOKIE["username"])){
                       echo '<a class="brand-right" href="/login"><em>Login</em></a>';
             } else {
+            echo '<a class="brand-right" href="/myorder"><em>My Order</em></a>';
+            echo '<a class="brand-right"> | </em></a>';
             echo '<a class="brand-right" href="/?logout=logout"><em>Welcome, '.$_COOKIE["username"].'</em></a>';
+            echo ' ';
             };
             ?>
             <div class="nav-collapse collapse">

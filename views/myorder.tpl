@@ -110,22 +110,11 @@
 
                 <?php
 				foreach($orders as $order) {
-				include('db.php');
-				global $mysqli;
-				$itemID = $order -> STOCK_ID;
-$strsql = "select * from stock where ID = $itemID";
-if ($result = $mysqli->query($strsql)) {
-                $row = $result->fetch_object();
-                $itemName = $row -> TITLE;
-                $result->close();
-                } else {
-                echo "Failed to query the database!";
-                }
 
                 echo '
                 <tr>
                     <td align="center">'.$order -> ID.'</td>
-                    <td align="center">'.$itemName.'</td>
+                    <td align="center">'.$order -> STOCK_NAME.'</td>
                     <td align="center">'.$order -> QUANTITY.'</td>
                     <td align="center">'.$order -> REMARK.'</td>
                 </tr>
